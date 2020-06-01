@@ -1,6 +1,6 @@
-# my-project
+# my-vue-components
 
-> A Vue.js project
+> My vue components
 
 ## Build Setup
 

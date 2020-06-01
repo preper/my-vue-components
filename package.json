@@ -1,7 +1,7 @@
 {
-  "name": "my-project",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "name": "my-vue-components",
+  "version": "0.0.1",
+  "description": "My vue components",
   "author": "preper <qpreper@hotmail.com>",
   "private": true,
   "scripts": {
@@ -9,8 +9,17 @@
     "start": "npm run dev",
     "build": "node build/build.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preper/my-vue-components.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/preper/my-vue-components/issues"
+  },
+  "homepage": "https://github.com/preper/my-vue-components#readme",
   "dependencies": {
-    "vue": "^2.5.2",
+    "vue": "^2.6.11",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -44,7 +53,7 @@
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.2",
+    "vue-template-compiler": "^2.6.11",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
