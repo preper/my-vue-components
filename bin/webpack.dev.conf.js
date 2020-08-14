@@ -52,18 +52,8 @@ const devWebpackConfig = {
         exclude: /node_modules/,
         use: [
           'vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          }
+          'css-loader',
+          'postcss-loader'
         ]
       },
       {
@@ -81,7 +71,8 @@ const devWebpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [path.join(__dirname, '../src'), path.join(__dirname, '../examples')]
+        include: [path.join(__dirname, '../src'), path.join(__dirname, '../examples')],
+        exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
