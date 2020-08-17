@@ -29,6 +29,7 @@ function createNotifierCallback () {
 }
 
 const devWebpackConfig = {
+  mode: 'development',
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './examples/index.js'
@@ -100,7 +101,6 @@ const devWebpackConfig = {
       }
     ]
   },
-  mode: 'development',
   devtool: 'eval-cheap-module-source-map',
 
   devServer: {
