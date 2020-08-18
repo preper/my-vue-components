@@ -1,36 +1,50 @@
 'use strict'
 const path = require('path')
-const utils = require('./utils')
-const config = require('../config')
+const webpack = require('webpack')
+const glob = require('globby')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+function getEntry(globPath) {
+  const entries = {}
+  glob.sync(globPath).forEach(entry => {
+    let pathname = path.dirname(entry).split('/').slice(2).join('/')
+    entries[pathname] = entry
+  })
+  return entries
 }
 
-
-
-module.exports = {
+const webpackConfig = {
+  mode: 'production',
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    index: './src/index.js',
+    ...getEntry('./src/components/**/index.js')
   },
   output: {
-    path: config.build.assetsRoot,
+    path: path.join(__dirname, '../lib'),
+    publicPath: '/static/',
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-    }
+      '@': path.join(__dirname, '../src')
+    },
+    extensions: ['.js', '.vue', '.json']
   },
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -46,14 +60,15 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [path.join(__dirname, '../src'), path.join(__dirname, '../examples')],
+        exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: 'static/img/[name].[hash:7].[ext]'
         }
       },
       {
@@ -61,7 +76,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+          name: 'static/media/[name].[hash:7].[ext]'
         }
       },
       {
@@ -69,13 +84,15 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: 'static/fonts/[name].[hash:7].[ext]'
         }
       }
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin()
   ],
   node: {
     setImmediate: false,
@@ -86,3 +103,5 @@ module.exports = {
     child_process: 'empty'
   }
 }
+
+module.exports = webpackConfig
