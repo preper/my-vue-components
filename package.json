@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "My vue components",
   "author": "preper <qpreper@hotmail.com>",
+  "main": "./lib/index.js",
   "private": true,
   "scripts": {
     "start": "npm run dev",
