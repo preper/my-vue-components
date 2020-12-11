@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .test-circle-wrong {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .test-circle-wrong svg {
+      transform: rotate(-60deg);
+    }
+    .test-circle-wrong circle {
+      animation: loading 4s infinite;
+      stroke-dasharray: 246PX, 295.31PX;
+      transform-origin: center;
+    }
+
+    @keyframes loading {
+      0% {
+        stroke-dasharray: 0, 295.31PX;
+        transform: none;
+      }
+      49.9% {
+        transform: none;
+      }
+      50% {
+        stroke-dasharray: 246PX, 295.31PX;
+        transform: matrix(0.5, -0.866, -0.866, -0.5, 0, 0)
+      }
+      100% {
+        stroke-dasharray: 0, 295.31PX;
+        transform: matrix(0.5, -0.866, -0.866, -0.5, 0, 0)
+      }
+    }
+
+    .test-circle {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .test-circle circle {
+      animation: loading-chrome 2.5s linear infinite;
+      stroke-dasharray: 0, 295.31px;
+      transform-origin: center;
+    }
+    @keyframes loading-chrome {
+      0% {
+        stroke-dasharray: 0, 295.31PX;
+        transform: rotate(-150deg);
+      }
+      25% {
+        stroke-dasharray: 246PX, 295.31PX;
+        transform: rotate(-60deg);
+      }
+      50% {
+        stroke-dasharray: 0, 295.31PX;
+        transform: rotate(390deg)
+      }
+      75% {
+        stroke-dasharray: 246PX, 295.31PX;
+        transform: rotate(480deg);
+      }
+      100% {
+        stroke-dasharray: 0, 295.31PX;
+        transform: rotate(930deg)
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="test-circle-wrong">
+    <svg viewBox="0 0 100 100">
+      <circle
+        cx="50" cy="50" r="47"
+        stroke=""
+        stroke-linecap="round"
+        stroke-width="6"
+        opacity="1"
+        fill-opacity="0"
+        style="stroke: #fff; stroke-dashoffset: 0px"></circle>
+    </svg>
+  </div>
+  <div class="test-circle">
+    <svg viewBox="0 0 100 100">
+      <circle
+        cx="50" cy="50" r="47"
+        stroke=""
+        stroke-linecap="round"
+        stroke-width="6"
+        opacity="1"
+        fill-opacity="0"
+        style="stroke: #fff; stroke-dashoffset: 0px"></circle>
+    </svg>
+  </div>
+</body>
+</html>
